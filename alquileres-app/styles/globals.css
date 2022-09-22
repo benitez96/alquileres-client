@@ -4,19 +4,45 @@
 
 @layer base{
   :root {
-    /* ========== Color styles */
+    /* ========== Color styles ========= */
 
-    --color-neutral-light: #edf2f4;
-    --color-neutral-primary: #2b2d42;
-    --color-neutral-secondary: #8d99ae;
+    /* default white */
+    --color-light: #edf2f4;
 
+    /* dark */
+    --color-dark-primary: #23263b;
+    --color-dark-secondary: #8d99ae;
+
+    /* red */
     --color-red-primary: #d90429;
     --color-red-secondary: #ef233c;
+
+
+    /* ---------- Neutral */
+    --color-neutral-lightest: #f4f4f5;
+    --color-neutral-light: #d3d4d8;
+    --color-neutral-dark: #91929d;
+    --color-neutral-darkest: #4f5162;
+
+    /* ---------- Uranus */
+    --color-uranus-base: #89d9d3;
+
+    /* ---------- Venus */
+    --color-venus-base: #aa086c;
+
+    /* ---------- Nebula */
+    --color-nebula-lightest: #e8eaff;
+    --color-nebula-light: #7884de;
+    --color-nebula-dark: #3f52e8;
+    --color-nebula-darkest: #1e2b8e;
+
+
 
   }
 
   html{
-    background-color: var(--color-neutral-light);
+    background-color: var(--color-light);
+
   }
    
 }
