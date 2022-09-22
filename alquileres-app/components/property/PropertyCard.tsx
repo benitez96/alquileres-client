@@ -13,7 +13,7 @@ export const PropertyCard = ({ colorScheme = 'light', id, children }: Props) => 
 
 
   return (
-    <Link href={`/?property=${id}`} as={`/property/${id}`} >
+    <Link href={`/?property=${id}`} as={`/property/${id}`} scroll={false} >
       <a>
         <article
           className={`border rounded-md w-[98%] md:w-10/12 min-h-[7rem] border-neutral-light mx-auto items-center p-4 gap-4 flex py-2

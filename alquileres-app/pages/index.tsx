@@ -6,6 +6,9 @@ import { Badge } from '../components/property/Badge'
 import { PropertyCard } from '../components/property/PropertyCard'
 import { Title } from '../components/property/Title'
 import { useRouter } from 'next/router'
+import { Modal } from '../components/modal'
+import { useDisclosure } from '../hooks/useDisclosure'
+import { useEffect } from 'react'
 
 const Home: NextPage = () => {
 
@@ -13,6 +16,17 @@ const Home: NextPage = () => {
 
   const { property } = router.query;
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleClose = () => {
+    router.push('/', '/', { shallow: true });
+    onClose()
+  }
+
+  useEffect(() => {
+    if (property) onOpen() 
+
+  }, [property])
 
   return (
     <>
@@ -111,6 +125,26 @@ const Home: NextPage = () => {
         </PropertyCard>
       </div>
 
+
+      <Modal isOpen={isOpen} onClose={handleClose} className='w-[98%] md:w-10/12 min-h-[90%]' >
+        <Modal.Header>
+          <h3 className="text-3xl font-semibold">
+            Modal Title
+          </h3>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            I always felt like I could do anything. That’s the main thing people are controlled by! Thoughts- their perception of themselves! They're slowed down by their perception of themselves. If you're taught you can’t do anything, you won’t do anything. I was taught I could do everything.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <button>
+            Solicitar
+          </button>
+        </Modal.Footer>
+
+      </Modal>
+        
 
     </>
   )
