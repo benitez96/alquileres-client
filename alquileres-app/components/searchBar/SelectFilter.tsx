@@ -1,5 +1,4 @@
-import { removeListener } from "process";
-import { EventHandler, FocusEventHandler, useEffect, useRef, useState } from "react";
+import { FocusEventHandler, useEffect, useRef, useState } from "react";
 
 interface Option {
 	value: string;
@@ -9,15 +8,24 @@ interface Option {
 
 interface Props {
 	options: Option[];
+	selected: Option[];
 	onSelect: (val: Option) => void;
 
 }
 
-export const SelectFilter = ({ options, onSelect }: Props) => {
+export const SelectFilter = ({ options, selected, onSelect }: Props) => {
 
 	const [show, setShow] = useState(false);
 	const [cords, setCords] = useState({ x: 0, y: 0 });
 	const [filter, setFilter] = useState('');
+
+	const handleSelect = (option: Option) => {
+
+		const alreadySelected = selected.find((opt) => opt.value === option.value);
+		if (!alreadySelected)
+			onSelect(option);
+
+	}
 
 	const ref = useRef<HTMLInputElement>(null);
 
@@ -29,7 +37,7 @@ export const SelectFilter = ({ options, onSelect }: Props) => {
 		e.preventDefault();
 		setTimeout(() => {
 			setShow(false);
-		}, 100)
+		}, 150)
 	}
 
 	useEffect(() => {
@@ -55,9 +63,9 @@ export const SelectFilter = ({ options, onSelect }: Props) => {
 	return (
 		<div className="relative max-h-12">
 			<input
-				className={`p-2 h-12 border-4 border-neutral-darkest rounded-2xl ${show ? 'border-b-0' : ''}`}
+				className="p-2 h-12 border-4 border-neutral-darkest rounded-2xl"
 				type="text"
-				placeholder="Buscar..."
+				placeholder={ show ? 'Filtrar por...' : 'Buscar...'}
 				onChange={e => setFilter(e.target.value)}
 				onFocus={handleFocus}
 				onBlur={handleBlur}
@@ -72,7 +80,13 @@ export const SelectFilter = ({ options, onSelect }: Props) => {
 						.filter(opt => opt.label.toLowerCase().includes(filter.toLowerCase()))
 						.map(
 							option =>
-								<li onClick={() => onSelect(option)} key={option.value}>{option.icon ? option.icon : '□'} {option.label}</li>
+								<li
+									onClick={() => handleSelect(option)}
+									key={option.value}
+									className="flex gap-2 items-center p-2 cursor-pointer hover:bg-neutral-lightest font-semibold"
+								>
+									{option.icon || '□'} {option.label}
+								</li>
 						)
 				}
 			</ul>
